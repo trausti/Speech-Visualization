@@ -6,4 +6,6 @@ It's the console and input line at the bottom of the UI.
 
 git add .
 git status
-git commit --message="Test of cloud 9 integration" --all --verbose
+git commit  --all --verbose --message="Test of cloud 9 integration"
+or actually
+git commit -a -v -m Test of cloud 9 integration
