@@ -1,11 +1,11 @@
 Currently I am just trying out Git and Cloud9 with a simple mfcc implementation and unittest.
 
-This was tricky and there is no documentation!
-
-It's the console and input line at the bottom of the UI.
+Aha! It's the console and input line at the bottom of the UI.
 
 git add .
 git status
 git commit  --all --verbose --message="Test of cloud 9 integration"
 or actually
 git commit -a -v -m Test of cloud 9 integration
+then 
+git push origin master
