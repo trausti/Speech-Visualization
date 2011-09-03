@@ -13,12 +13,12 @@ function MFCC() {
   this.sr = 8000;  // Sample rate.
   this.nfilts = 40;  // Number of Mel filterbanks. Why not 23?
   this.width = 1.0;  //
-  this.minfrq = 0;
-  this.maxfrq = sr / 2;
-  this.nfft = 256;
+  this.minfrq = 0;  // Minumum frequency.
+  this.maxfrq = sr / 2;  // Maximum frequency.
+  this.nfft = 256;  // Length of fft.
   this.ncep = 13;  // Number of cepstral coefficients.
   
-  // Center freqs of each FFT bin
+  // Center freqs of each FFT bin.
   this.fftfrqs = new Array();
   for (i = 0; i < this.nfft; i++) {
     this.fftfrqs[i] = i / this.nfft * this.sr;
@@ -32,8 +32,6 @@ function MFCC() {
     this.binfrqs[i] = mel2hz(minmel + i / (this.nfilts + 1) * (maxmel - minmel));
   }
 }
-
-
 
 /**
  * Log10.
@@ -130,4 +128,15 @@ function TEST_mel2dct() {
   
   
   TEST_SUMMARY();
+}
+
+/**
+ * Run all tests
+ */
+function runAllTests() {
+  TEST_log10();
+  TEST_hz2mel();
+  TEST_mel2hz();
+  TEST_fft2mel();
+  TEST_mel2dct(); 
 }
