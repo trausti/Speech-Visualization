@@ -14,7 +14,7 @@ function MFCC() {
   this.nfilts = 40;  // Number of Mel filterbanks. Why not 23?
   this.width = 1.0;  //
   this.minfrq = 0;  // Minumum frequency.
-  this.maxfrq = sr / 2;  // Maximum frequency.
+  this.maxfrq = this.sr / 2;  // Maximum frequency.
   this.nfft = 256;  // Length of fft.
   this.ncep = 13;  // Number of cepstral coefficients.
   
@@ -25,11 +25,11 @@ function MFCC() {
   }
   
   // 'Center freqs' of Mel bands - uniformly spaced between limits.
-  var minmel = hz2mel(minfrq);
-  var maxmel = hz2mel(maxfrq);
+  var minmel = this.hz2mel(this.minfrq);
+  var maxmel = this.hz2mel(this.maxfrq);
   this.binfrqs = new Array();
   for (i = 0; i <= this.nfilts + 1; i++) {
-    this.binfrqs[i] = mel2hz(minmel + i / (this.nfilts + 1) * (maxmel - minmel));
+    this.binfrqs[i] = this.mel2hz(minmel + i / (this.nfilts + 1) * (maxmel - minmel));
   }
 }
 
@@ -54,13 +54,13 @@ function TEST_log10() {
  */
 MFCC.prototype.hz2mel = function(f) {
   // HTK version
-  return 2595.0 * log10(1 + f / 700.0);
+  return 2595.0 * this.log10(1 + f / 700.0);
 }
 
 function TEST_hz2mel() {
   TEST_TITLE();
   mfcc = new MFCC();
-  EXPECT_NEAR(3000, hz2mel(3000), "Exepcted the ?? hz to map to ?? on Mel scale");
+  EXPECT_NEAR(3000, mfcc.hz2mel(3000), "Exepcted the ?? hz to map to ?? on Mel scale");
   TEST_SUMMARY();
 }
 
@@ -76,7 +76,7 @@ function TEST_mel2hz() {
   TEST_TITLE();
   mfcc = new MFCC();
   for (f = 100; f < 8000; f += 1000)
-  EXPECT_NEAR(f, mfcc.mel2hz(mffc.hz2mel(f)), "Expected f = mel2hz(hz2mel(f))");
+  EXPECT_NEAR(f, mfcc.mel2hz(mfcc.hz2mel(f)), "Expected f = mel2hz(hz2mel(f))");
   TEST_SUMMARY();
 }
 
